@@ -11,6 +11,7 @@ public class TennisGame {
 
     public String registerPoint(Player player) {
         player.score();
+
         int p1Points = player1.getPoints();
         int p2Points = player2.getPoints();
 
@@ -28,31 +29,7 @@ public class TennisGame {
             return status = "Deuce";
         }
 
-        int pointsDifference = p1Points - p2Points;
-
-        if (pointsDifference == 1) {
-            if (p2Points < 3) {
-                return status = getStatusByPoint(p1Points) + " - " + getStatusByPoint(p2Points);
-            }
-            return status = "Advantage Player " + player1.getName();
-        }
-
-        if (pointsDifference == -1) {
-            if (p1Points < 3) {
-                return status = getStatusByPoint(p1Points) + " - " + getStatusByPoint(p2Points);
-            }
-            return status = "Advantage Player " + player2.getName();
-        }
-
-        if (pointsDifference == 2) {
-            return status = "Player " + player1.getName() + " wins";
-        }
-
-        if (pointsDifference == -2) {
-            return status = "Player " + player2.getName() + " wins";
-        }
-
-        return status;
+        return status = calculateStatusWithScoreOver3();
     }
 
     private String getStatusByPoint(int points) {
@@ -67,6 +44,30 @@ public class TennisGame {
                 return "Forty";
         }
         return "";
+    }
+
+    public String calculateStatusWithScoreOver3() {
+        int pointsDifference = player1.getPoints() - player2.getPoints();
+
+        if (pointsDifference == 1) {
+            if (player2.getPoints() < 3) {
+                return getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
+            }
+            return "Advantage Player " + player1.getName();
+        }
+
+        if (pointsDifference == -1) {
+            if (player1.getPoints() < 3) {
+                return status = getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
+            }
+            return "Advantage Player " + player2.getName();
+        }
+
+        if (pointsDifference == 2) {
+            return "Player " + player1.getName() + " wins";
+        }
+
+        return "Player " + player2.getName() + " wins";
     }
 
     public String getStatus() {
