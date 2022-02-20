@@ -1,16 +1,27 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 public class TennisGameTest {
+    private TennisGame tennisGame;
+    private Player player1;
+    private Player player2;
+
+    @Before
+    public void initialize() {
+        player1 = new Player("A");
+        player2 = new Player("B");
+        tennisGame = new TennisGame(player1, player2);
+    }
+
+    @Test
+    public void TestRegisterPointInitialState() {
+        assertEquals("Love - All", tennisGame.getStatus());
+    }
+
     @Test
     public void TestRegisterPointPlayer1FirstScore() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-
         tennisGame.registerPoint(player1);
 
         assertEquals("Fifteen - Love", tennisGame.getStatus());
@@ -18,11 +29,6 @@ public class TennisGameTest {
 
     @Test
     public void TestRegisterPointPlayer2FirstScore() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-
         tennisGame.registerPoint(player2);
 
         assertEquals("Love - Fifteen", tennisGame.getStatus());
@@ -30,11 +36,6 @@ public class TennisGameTest {
 
     @Test
     public void TestRegisterPointPlayerBWinning() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-
         tennisGame.registerPoint(player2);
         tennisGame.registerPoint(player1);
         tennisGame.registerPoint(player2);
@@ -44,11 +45,6 @@ public class TennisGameTest {
 
     @Test
     public void TestRegisterPointPlayerTieBeforeForty() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-
         tennisGame.registerPoint(player2);
         tennisGame.registerPoint(player1);
         tennisGame.registerPoint(player1);
@@ -59,11 +55,6 @@ public class TennisGameTest {
 
     @Test
     public void TestRegisterPointPlayerThirtyForty() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-
         tennisGame.registerPoint(player1);
         tennisGame.registerPoint(player1);
 
@@ -76,11 +67,6 @@ public class TennisGameTest {
 
     @Test
     public void TestRegisterPointPlayerPlayer2Wins() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-
         tennisGame.registerPoint(player1);
         tennisGame.registerPoint(player1);
         tennisGame.registerPoint(player1);
@@ -98,11 +84,6 @@ public class TennisGameTest {
 
     @Test
     public void TestRegisterPointPlayerRollbackAdv() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-
         tennisGame.registerPoint(player1);
         tennisGame.registerPoint(player1);
         tennisGame.registerPoint(player1);
@@ -118,23 +99,7 @@ public class TennisGameTest {
     }
 
     @Test
-    public void TestRegisterPointLoveAll() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-
-        assertEquals("Love - All", tennisGame.getStatus());
-    }
-
-    @Test
     public void TestRegisterPointOnly1Scores() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-        assertEquals("Love - All", tennisGame.getStatus());
-
         tennisGame.registerPoint(player1);
         assertEquals("Fifteen - Love", tennisGame.getStatus());
 
@@ -150,12 +115,6 @@ public class TennisGameTest {
 
     @Test
     public void TestRegisterPoint() {
-        Player player1 = new Player("A");
-        Player player2 = new Player("B");
-
-        TennisGame tennisGame = new TennisGame(player1, player2);
-        assertEquals("Love - All", tennisGame.getStatus());
-
         tennisGame.registerPoint(player1);
         assertEquals("Fifteen - Love", tennisGame.getStatus());
 
