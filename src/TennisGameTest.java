@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class TennisGameTest {
     @Test
@@ -91,6 +92,8 @@ public class TennisGameTest {
         tennisGame.registerPoint(player2);
 
         assertEquals("Player B wins", tennisGame.getStatus());
+        assertEquals(0, player1.getPoints());
+        assertEquals(0, player2.getPoints());
     }
 
     @Test
@@ -122,5 +125,53 @@ public class TennisGameTest {
         TennisGame tennisGame = new TennisGame(player1, player2);
 
         assertEquals("Love - All", tennisGame.getStatus());
+    }
+
+    @Test
+    public void TestRegisterPointOnly1Scores() {
+        Player player1 = new Player("A");
+        Player player2 = new Player("B");
+
+        TennisGame tennisGame = new TennisGame(player1, player2);
+        assertEquals("Love - All", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player1);
+        assertEquals("Fifteen - Love", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player1);
+        assertEquals("Thirty - Love", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player1);
+        assertEquals("Forty - Love", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player1);
+        assertEquals("Player A wins", tennisGame.getStatus());
+    }
+
+    @Test
+    public void TestRegisterPoint() {
+        Player player1 = new Player("A");
+        Player player2 = new Player("B");
+
+        TennisGame tennisGame = new TennisGame(player1, player2);
+        assertEquals("Love - All", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player1);
+        assertEquals("Fifteen - Love", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player1);
+        assertEquals("Thirty - Love", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player1);
+        assertEquals("Forty - Love", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player2);
+        assertEquals("Forty - Fifteen", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player2);
+        assertEquals("Forty - Thirty", tennisGame.getStatus());
+
+        tennisGame.registerPoint(player1);
+        assertEquals("Player A wins", tennisGame.getStatus());
     }
 }

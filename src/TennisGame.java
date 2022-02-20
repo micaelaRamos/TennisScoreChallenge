@@ -2,6 +2,8 @@ public class TennisGame {
     private static final String ADVANTAGE_PLAYER = "Advantage Player ";
     private static final String PLAYER_STRING_ID = "Player ";
     private static final String TIE_WORDING = "Deuce";
+    private static final String INITIAL_STATUS = "Love - All";
+
     private Player player1;
     private Player player2;
     private String status;
@@ -9,7 +11,7 @@ public class TennisGame {
     public TennisGame(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
-        this.status = "Love - All";
+        this.status = INITIAL_STATUS;
     }
 
     public String registerPoint(Player player) {
@@ -51,23 +53,58 @@ public class TennisGame {
 
     public String calculateStatusWithScoreOver3() {
         int pointsDifference = player1.getPoints() - player2.getPoints();
+        String response = getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
 
         switch (pointsDifference) {
             case 1:
-                if (player2.getPoints() < 3) {
-                    return getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
+                if (player2.getPoints() > 3) {
+                    response = ADVANTAGE_PLAYER + player1.getName();
                 }
-                return ADVANTAGE_PLAYER + player1.getName();
+                break;
             case -1:
-                if (player1.getPoints() < 3) {
-                    return status = getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
+                if (player1.getPoints() > 3) {
+                    response = ADVANTAGE_PLAYER + player2.getName();
                 }
-                return ADVANTAGE_PLAYER + player2.getName();
+                break;
             case 2:
-                return PLAYER_STRING_ID + player1.getName() + " wins";
+            case 3:
+                if (player1.getPoints() > 3) {
+                    resetPlayersPoints();
+                    response = playerWins(player1);
+                }
+                break;
+            case 4:
+                resetPlayersPoints();
+                response = playerWins(player1);
+                break;
+            case -2:
+                if (player2.getPoints() > 3) {
+                    resetPlayersPoints();
+                    response = playerWins(player2);
+                }
+                break;
+            case -4:
+                resetPlayersPoints();
+                response = playerWins(player2);
+                break;
+            case -3:
+                if (player2.getPoints() > 3) {
+                    resetPlayersPoints();
+                    response = playerWins(player1);
+                }
+                break;
         }
 
-        return PLAYER_STRING_ID + player2.getName() + " wins";
+        return response;
+    }
+
+    private void resetPlayersPoints() {
+        this.player1.setPoints(0);
+        this.player2.setPoints(0);
+    }
+
+    private String playerWins(Player player) {
+        return PLAYER_STRING_ID + player.getName() + " wins";
     }
 
     public String getStatus() {
