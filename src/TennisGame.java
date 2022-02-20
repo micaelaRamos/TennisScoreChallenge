@@ -49,22 +49,19 @@ public class TennisGame {
     public String calculateStatusWithScoreOver3() {
         int pointsDifference = player1.getPoints() - player2.getPoints();
 
-        if (pointsDifference == 1) {
-            if (player2.getPoints() < 3) {
-                return getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
-            }
-            return "Advantage Player " + player1.getName();
-        }
-
-        if (pointsDifference == -1) {
-            if (player1.getPoints() < 3) {
-                return status = getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
-            }
-            return "Advantage Player " + player2.getName();
-        }
-
-        if (pointsDifference == 2) {
-            return "Player " + player1.getName() + " wins";
+        switch (pointsDifference) {
+            case 1:
+                if (player2.getPoints() < 3) {
+                    return getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
+                }
+                return "Advantage Player " + player1.getName();
+            case -1:
+                if (player1.getPoints() < 3) {
+                    return status = getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
+                }
+                return "Advantage Player " + player2.getName();
+            case 2:
+                return "Player " + player1.getName() + " wins";
         }
 
         return "Player " + player2.getName() + " wins";
