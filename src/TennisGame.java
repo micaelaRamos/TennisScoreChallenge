@@ -1,4 +1,7 @@
 public class TennisGame {
+    private static final String ADVANTAGE_PLAYER = "Advantage Player ";
+    private static final String PLAYER_STRING_ID = "Player ";
+    private static final String TIE_WORDING = "Deuce";
     private Player player1;
     private Player player2;
     private String status;
@@ -26,7 +29,7 @@ public class TennisGame {
         }
 
         if (p1Points == p2Points) {
-            return status = "Deuce";
+            return status = TIE_WORDING;
         }
 
         return status = calculateStatusWithScoreOver3();
@@ -54,17 +57,17 @@ public class TennisGame {
                 if (player2.getPoints() < 3) {
                     return getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
                 }
-                return "Advantage Player " + player1.getName();
+                return ADVANTAGE_PLAYER + player1.getName();
             case -1:
                 if (player1.getPoints() < 3) {
                     return status = getStatusByPoint(player1.getPoints()) + " - " + getStatusByPoint(player2.getPoints());
                 }
-                return "Advantage Player " + player2.getName();
+                return ADVANTAGE_PLAYER + player2.getName();
             case 2:
-                return "Player " + player1.getName() + " wins";
+                return PLAYER_STRING_ID + player1.getName() + " wins";
         }
 
-        return "Player " + player2.getName() + " wins";
+        return PLAYER_STRING_ID + player2.getName() + " wins";
     }
 
     public String getStatus() {
