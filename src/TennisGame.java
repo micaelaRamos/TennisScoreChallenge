@@ -9,8 +9,12 @@ public class TennisGame {
         this.status = new GameStatus();
     }
 
-    public void registerPoint(Player player) {
+    public String registerPoint(Player player) {
         player.score();
-        status.updateStatus(player1, player2);
+        return status.updateStatus(player1, player2);
+    }
+
+    public String getStatus() {
+        return status.getStatus();
     }
 }
